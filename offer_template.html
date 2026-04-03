@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ofertă Site Web — Alexandru Nemeș</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0c0c0c;
+      --surface:   #141414;
+      --surface2:  #1c1c1c;
+      --gold:      #c9a84c;
+      --gold-light:#e2c47a;
+      --gold-dim:  rgba(201,168,76,.15);
+      --text:      #f0ead8;
+      --text-dim:  #8a8070;
+      --border:    rgba(201,168,76,.18);
+      --radius:    4px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: .4;
+      pointer-events: none;
+    }
+
+    /* ── GLOW ── */
+    .glow {
+      position: fixed; top: -20vh; left: 50%;
+      transform: translateX(-50%);
+      width: 80vw; height: 60vh;
+      background: radial-gradient(ellipse, rgba(201,168,76,.06) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── WRAPPER ── */
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 56px 0 0;
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      animation: fadeUp .6s ease both;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 7vw, 5rem);
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      margin-bottom: 20px;
+      animation: fadeUp .6s .1s ease both;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 0 auto 16px;
+      animation: fadeUp .6s .2s ease both;
+      line-height: 1.7;
+    }
+
+    .delivery-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 64px;
+      animation: fadeUp .6s .3s ease both;
+    }
+
+    .delivery-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #4ade80;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 64px;
+    }
+
+    /* ── PACKAGES ── */
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 80px;
+    }
+
+    @media (max-width: 680px) {
+      .packages { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform .3s ease, border-color .3s ease;
+      animation: fadeUp .6s ease both;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,.25);
+    }
+
+    .card:nth-child(1) { animation-delay: .1s; }
+    .card:nth-child(2) { animation-delay: .2s; }
+    .card:nth-child(3) { animation-delay: .3s; }
+
+    /* FEATURED card */
+    .card.featured {
+      background: var(--surface2);
+      border-color: var(--border);
+      border-width: 1.5px;
+    }
+
+    .card.featured::before {
+      content: 'CEL MAI ALES';
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #0c0c0c;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .card-tier {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .card-price sup {
+      font-size: 1.2rem;
+      vertical-align: super;
+      margin-right: 2px;
+    }
+
+    .card-note {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+    }
+
+    .card-sep {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,.06);
+      margin-bottom: 24px;
+    }
+
+    .card-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 32px;
+    }
+
+    .card-features li {
+      font-size: 14.5px;
+      color: #c5bfb0;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .card-features li:last-child { border-bottom: none; }
+
+    .card-features li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 9px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .card-features li.dimmed {
+      color: var(--text-dim);
+    }
+
+    .card-features li.dimmed::before {
+      color: var(--text-dim);
+    }
+
+    .card-summary {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255,255,255,.05);
+      font-style: italic;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-decoration: none;
+      transition: all .25s ease;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--gold);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+    }
+
+    .btn-solid {
+      background: var(--gold);
+      color: #0c0c0c;
+      border: 1px solid var(--gold);
+    }
+
+    .btn-solid:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+
+    /* ── DOMAIN NOTE ── */
+    .domain-note {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.06);
+      border-left: 3px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 80px;
+      font-size: 14.5px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      animation: fadeUp .6s .4s ease both;
+    }
+
+    .domain-note strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* ── WHY SECTION ── */
+    .why {
+      margin-bottom: 80px;
+      animation: fadeUp .6s .5s ease both;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .why h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }
+
+    .why h2 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 560px) {
+      .stats { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 8px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .why-text {
+      font-size: 16px;
+      color: var(--text-dim);
+      max-width: 600px;
+      line-height: 1.8;
+    }
+
+    .why-text strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* ── FOOTER CTA ── */
+    .footer-cta {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 64px 0;
+      text-align: center;
+      animation: fadeUp .6s .6s ease both;
+    }
+
+    .footer-cta h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    .footer-cta p {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 32px;
+    }
+
+    .footer-cta .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      font-size: 14px;
+    }
+
+    .wa-icon {
+      width: 18px; height: 18px;
+      fill: currentColor;
+    }
+
+    .footer-meta {
+      margin-top: 40px;
+      font-size: 12px;
+      color: var(--text-dim);
+      opacity: .6;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="tag">Alexandru Nemeș · Web Design</div>
+    <h1>Un site pentru<br><em>afacerea ta</em></h1>
+    <p class="subtitle">Design profesionist. Livrat fără costuri ascunse.<br>Alege pachetul potrivit pentru afacerea ta.</p>
+    <div class="delivery-badge">Livrare garantată în 3 zile lucrătoare</div>
+  </header>
+
+  <div class="divider"></div>
+
+  <!-- WHY SECTION — vine prima -->
+  <section class="why">
+    <div class="section-label">De ce un site?</div>
+    <h2>Investiția se recuperează<br>din <em>primul client nou</em></h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">81%</div>
+        <div class="stat-label">din oameni caută un business online înainte să-l viziteze</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3×</div>
+        <div class="stat-label">mai multă credibilitate față de businessuri fără site</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">site-ul lucrează pentru tine chiar și când ești închis</div>
+      </div>
+    </div>
+    <p class="why-text">
+      Un site profesional nu este un lux — este cartea ta de vizită digitală. <strong>Clienții te compară cu concurența online</strong>, iar fără prezență web, pierzi din start. Cu un site bine construit, câștigul dintr-un singur client nou acoperă integral investiția.
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PACKAGES -->
+  <section class="packages">
+
+    <!-- BASIC -->
+    <div class="card">
+      <div class="card-tier">Basic</div>
+      <div class="card-price"><sup>€</sup>150</div>
+      <div class="card-note">plată unică · fără abonament</div>
+      <div class="card-sep"></div>
+      <ul class="card-features">
+        <li>Site de prezentare profesional</li>
+        <li>5–7 pagini (Home, Despre, Servicii, Contact etc.)</li>
+        <li>Poze reale din business</li>
+        <li>Buton WhatsApp / afișare număr direct</li>
+        <li>Design modern, 100% mobile-friendly</li>
+        <li>Livrare în 3 zile</li>
+        <li class="dimmed">Fără animații avansate</li>
+        <li class="dimmed">Fără calendar integrat</li>
+      </ul>
+      <p class="card-summary">Un site simplu și curat care prezintă afacerea ta și trimite clienții direct spre tine — pe WhatsApp sau telefon.</p>
+      <a href="https://wa.me/40722774524?text=Buna%20ziua%2C%20sunt%20interesat%20de%20pachetul%20Basic%20%E2%80%94%20%E2%82%AC150" class="btn btn-outline" target="_blank">Vreau pachetul Basic</a>
+    </div>
+
+    <!-- STANDARD (FEATURED) -->
+    <div class="card featured">
+      <div class="card-tier">Standard</div>
+      <div class="card-price"><sup>€</sup>200</div>
+      <div class="card-note">plată unică · fără abonament</div>
+      <div class="card-sep"></div>
+      <ul class="card-features">
+        <li>Tot ce include Basic, plus:</li>
+        <li>Animații și efecte vizuale incluse</li>
+        <li>Calendar integrat pentru programări</li>
+        <li>Configurare domeniu (conexiune la site)</li>
+        <li>Indexare Google Search</li>
+        <li>SEO de bază (titluri, meta, viteza)</li>
+        <li>1 mentenanță gratuită la cerere</li>
+        <li>Livrare în 3 zile</li>
+      </ul>
+      <p class="card-summary">Tot ce ai nevoie pentru o prezență online completă — animații, programări direct în calendar, domeniu configurat și indexare pe Google.</p>
+      <a href="https://wa.me/40722774524?text=Buna%20ziua%2C%20sunt%20interesat%20de%20pachetul%20Standard%20%E2%80%94%20%E2%82%AC200" class="btn btn-solid" target="_blank">Vreau pachetul Standard</a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="card">
+      <div class="card-tier">Premium</div>
+      <div class="card-price"><sup>€</sup>250</div>
+      <div class="card-note">plată unică · fără abonament</div>
+      <div class="card-sep"></div>
+      <ul class="card-features">
+        <li>Tot ce include Standard, plus:</li>
+        <li>Animații complexe & design 100% custom</li>
+        <li>Audit complet al site-ului</li>
+        <li>SEO avansat</li>
+        <li>3 mentenanțe incluse (la cerere)</li>
+        <li>Prioritate la modificări</li>
+        <li>Livrare în 3 zile</li>
+      </ul>
+      <p class="card-summary">Pachetul complet — animații complexe, SEO avansat, audit și 3 mentenanțe incluse. Site-ul tău, la cel mai înalt nivel.</p>
+      <a href="https://wa.me/40722774524?text=Buna%20ziua%2C%20sunt%20interesat%20de%20pachetul%20Premium%20%E2%80%94%20%E2%82%AC250" class="btn btn-outline" target="_blank">Vreau pachetul Premium</a>
+    </div>
+
+  </section>
+
+  <!-- DOMAIN NOTE -->
+  <div class="domain-note">
+    <strong>Notă despre domeniu (ex: numeafacere.ro):</strong> Costul domeniului este <strong>€10–25/an</strong>, plătit direct de tine la un provider (ex: Namecheap, GoDaddy). Acesta <em>nu intră</em> în prețul pachetului — eu mă ocup de configurare și conectare la site, complet gratuit. Fără surprize.
+  </div>
+
+  <!-- FOOTER CTA -->
+  <div class="footer-cta">
+    <h3>Hai să construim ceva împreună</h3>
+    <p>Răspund în aceeași zi. Nicio obligație, nicio presiune.</p>
+    <a href="https://wa.me/40722774524?text=Buna%20ziua%2C%20sunt%20interesat%20de%20un%20site%20pentru%20afacerea%20mea" class="btn btn-solid" target="_blank">
+      <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Scrie-mi pe WhatsApp
+    </a>
+    <div class="footer-meta">Alexandru Nemeș · clevs.ai.agency@gmail.com · 0722 774 524</div>
+  </div>
+
+</div>
+
+</body>
+</html>
