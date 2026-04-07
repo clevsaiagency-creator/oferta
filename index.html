@@ -229,9 +229,9 @@
     }
 
     .card-features li {
-      font-size: 14.5px;
+      font-size: 14px;
       color: #c5bfb0;
-      padding: 7px 0;
+      padding: 8px 0;
       border-bottom: 1px solid rgba(255,255,255,.04);
       display: flex;
       align-items: flex-start;
@@ -240,19 +240,27 @@
 
     .card-features li:last-child { border-bottom: none; }
 
-    .card-features li::before {
-      content: '✦';
+    /* ── FEATURE ICON ── */
+    .feat-icon {
+      width: 14px;
+      height: 14px;
       color: var(--gold);
-      font-size: 9px;
-      margin-top: 3px;
       flex-shrink: 0;
+      margin-top: 2px;
+      stroke-width: 1.75;
     }
 
-    .card-features li.dimmed {
+    /* ── INHERIT ROW (Tot ce are X, plus:) ── */
+    .card-features li.inherit-row {
       color: var(--text-dim);
+      font-style: italic;
+      font-size: 13px;
+      padding-bottom: 14px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(201,168,76,.2) !important;
     }
 
-    .card-features li.dimmed::before {
+    .card-features li.inherit-row .feat-icon {
       color: var(--text-dim);
     }
 
@@ -395,6 +403,60 @@
       font-weight: 400;
     }
 
+    /* ── FAQ ── */
+    .faq {
+      margin-bottom: 80px;
+      animation: fadeUp .6s .55s ease both;
+    }
+
+    .faq h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }
+
+    .faq h2 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 22px 0;
+    }
+
+    .faq-item:first-of-type {
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .faq-q {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 400;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-q::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .faq-a {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.75;
+      padding-left: 17px;
+    }
+
     /* ── FOOTER CTA ── */
     .footer-cta {
       border-top: 1px solid rgba(255,255,255,.06);
@@ -414,19 +476,6 @@
       font-size: 14px;
       color: var(--text-dim);
       margin-bottom: 32px;
-    }
-
-    .footer-cta .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 36px;
-      font-size: 14px;
-    }
-
-    .wa-icon {
-      width: 18px; height: 18px;
-      fill: currentColor;
     }
 
     .footer-meta {
@@ -454,12 +503,12 @@
     <div class="tag">Alexandru Nemeș · Web Design</div>
     <h1>Un site pentru<br><em>afacerea ta</em></h1>
     <p class="subtitle">Design profesionist. Livrat fără costuri ascunse.<br>Alege pachetul potrivit pentru afacerea ta.</p>
-    <div class="delivery-badge">Livrare garantată în 3 zile lucrătoare</div>
+    <div class="delivery-badge">Livrare garantată în 48–72 ore</div>
   </header>
 
   <div class="divider"></div>
 
-  <!-- WHY SECTION — vine prima -->
+  <!-- WHY SECTION -->
   <section class="why">
     <div class="section-label">De ce un site?</div>
     <h2>Investiția se recuperează<br>din <em>primul client nou</em></h2>
@@ -494,14 +543,34 @@
       <div class="card-note">plată unică · fără abonament</div>
       <div class="card-sep"></div>
       <ul class="card-features">
-        <li>Site de prezentare profesional</li>
-        <li>5–7 pagini (Home, Despre, Servicii, Contact etc.)</li>
-        <li>Poze reale din business</li>
-        <li>Buton WhatsApp / afișare număr direct</li>
-        <li>Design modern, 100% mobile-friendly</li>
-        <li>Livrare în 3 zile</li>
-        <li class="dimmed">Fără animații avansate</li>
-        <li class="dimmed">Fără calendar integrat</li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Site de prezentare profesional
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+          5–7 pagini (Home, Servicii, Contact etc.)
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          Poze reale din business
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.18 2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          Buton WhatsApp / afișare număr direct
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+          Funcționează perfect pe mobile și desktop
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          Configurare domeniu inclusă
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Livrare în 72 ore
+        </li>
       </ul>
       <p class="card-summary">Un site simplu și curat care prezintă afacerea ta și trimite clienții direct spre tine — pe WhatsApp sau telefon.</p>
     </div>
@@ -513,16 +582,40 @@
       <div class="card-note">plată unică · fără abonament</div>
       <div class="card-sep"></div>
       <ul class="card-features">
-        <li>Tot ce include Basic, plus:</li>
-        <li>Animații și efecte vizuale incluse</li>
-        <li>Calendar integrat pentru programări</li>
-        <li>Configurare domeniu (conexiune la site)</li>
-        <li>Indexare Google Search</li>
-        <li>SEO de bază (titluri, meta, viteza)</li>
-        <li>1 mentenanță gratuită la cerere</li>
-        <li>Livrare în 3 zile</li>
+        <li class="inherit-row">
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Tot ce include Basic, plus:
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Animații și efecte vizuale
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Sisteme integrate cu afacerea ta (programări, rezervări, apeluri etc.)
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          Indexare Google Search
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          SEO de bază — titluri, meta, viteză
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          Web analytics — vizitatori și surse de trafic
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          1 mentenanță gratuită la cerere
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Livrare în 48 ore
+        </li>
       </ul>
-      <p class="card-summary">Tot ce ai nevoie pentru o prezență online completă — animații, programări direct în calendar, domeniu configurat și indexare pe Google.</p>
+      <p class="card-summary">Tot ce ai nevoie pentru o prezență online completă — animații, sisteme integrate, analytics și domeniu configurat.</p>
     </div>
 
     <!-- PREMIUM -->
@@ -532,23 +625,77 @@
       <div class="card-note">plată unică · fără abonament</div>
       <div class="card-sep"></div>
       <ul class="card-features">
-        <li>Tot ce include Standard, plus:</li>
-        <li>Animații complexe & design 100% custom</li>
-        <li>Audit complet al site-ului</li>
-        <li>SEO avansat</li>
-        <li>3 mentenanțe incluse (la cerere)</li>
-        <li>Prioritate la modificări</li>
-        <li>Livrare în 3 zile</li>
+        <li class="inherit-row">
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Tot ce include Standard, plus:
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.5 22 2 17.5 2 12A10 10 0 0 1 12 2c0 2.76 2.24 5 5 5a4 4 0 0 1 4 4 6 6 0 0 1-6 6h-2a2 2 0 1 0 0 4 1 1 0 0 0 1 1"/></svg>
+          Animații complexe & design 100% custom
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Audit complet al site-ului
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          SEO rafinat — structură, conținut, viteză
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          Web analytics avansat
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          3 mentenanțe incluse (la cerere)
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 2.5h3L12 7"/><path d="M10 14v-3"/><path d="M14 14v-3"/><path d="M11 19H6.5a3.5 3.5 0 0 1 0-7h.5"/><path d="M13 19h4.5a3.5 3.5 0 0 0 0-7h-.5"/></svg>
+          Prioritate la modificări
+        </li>
+        <li>
+          <svg class="feat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Livrare în 48 ore
+        </li>
       </ul>
-      <p class="card-summary">Pachetul complet — animații complexe, SEO avansat, audit și 3 mentenanțe incluse. Site-ul tău, la cel mai înalt nivel.</p>
+      <p class="card-summary">Pachetul complet — design custom, SEO rafinat, analytics și 3 mentenanțe incluse. Cel mai bun site pentru afacerea ta.</p>
     </div>
 
   </section>
 
   <!-- DOMAIN NOTE -->
   <div class="domain-note">
-    <strong>Notă despre domeniu (ex: numeafacere.ro):</strong> Costul domeniului este <strong>€10–25/an</strong>, plătit direct de tine la un provider (ex: Namecheap, GoDaddy). Acesta <em>nu intră</em> în prețul pachetului — eu mă ocup de configurare și conectare la site, complet gratuit. Fără surprize.
+    <strong>Notă despre domeniu (ex: numeafacere.ro):</strong> Costul domeniului este <strong>€10–25/an</strong>, plătit direct de tine la un provider (ex: Namecheap, GoDaddy). Acesta <em>nu intră</em> în prețul pachetului — eu mă ocup de configurare și conectare la site, complet gratuit, indiferent de pachetul ales. Fără surprize.
   </div>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="section-label">Întrebări frecvente</div>
+    <h2>Răspunsuri <em>clare</em></h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Cine cumpără domeniul?</div>
+      <p class="faq-a">Tu îl cumperi direct de la un provider (ex: Namecheap, GoDaddy) — costă €10–25/an. Eu mă ocup de configurare și conectare la site, gratuit, indiferent de pachetul ales.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Ce înseamnă mentenanță?</div>
+      <p class="faq-a">O sesiune de ajustări la site — text nou, poze actualizate, modificări mici de design sau funcționalitate. Se face la cerere, în termen de 24–48 ore.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Trebuie să plătesc hosting?</div>
+      <p class="faq-a">Nu. Site-ul se publică pe o infrastructură modernă fără costuri de hosting. Plătești doar domeniul, dacă vrei unul personalizat.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Pot vedea un exemplu înainte să decid?</div>
+      <p class="faq-a">Da — îți trimit un concept de site personalizat pentru afacerea ta, gratuit, fără nicio obligație. Dacă îți place, continuăm. Dacă nu, nu pierzi nimic.</p>
+    </div>
+
+  </section>
 
   <!-- FOOTER CTA -->
   <div class="footer-cta">
